@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="GreenCity.CommonUtils" Version="1.4.1" />
+		<PackageReference Include="GreenCity.Http" Version="1.4.1" />
+		<PackageReference Include="Hangfire" Version="1.7.31" />
+		<PackageReference Include="Refit" Version="6.3.2" />
+		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="GreenCity.CommonUtils" Version="1.4.1" />
+    <PackageReference Include="GreenCity.Http" Version="1.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\DataContracts\AuthContracts\AuthContracts.csproj" />
+    <ProjectReference Include="..\..\Common\DataContracts\DispatcherService.Contracts\DispatcherService.Contracts.csproj" />
+    <ProjectReference Include="..\..\Common\DataContracts\LogistService.Contracts\LogistService.Contracts.csproj" />
+    <ProjectReference Include="..\..\Common\DataContracts\MissionService.Contracts\MissionService.Contracts.csproj" />
+    <ProjectReference Include="..\..\Common\DataContracts\TransportContracts\TransportContracts.csproj" />
+    <ProjectReference Include="..\DispatcherService.Database\DispatcherService.Database.csproj" />
+  </ItemGroup>
+
+</Project>

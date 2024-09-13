@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Configurations>Debug;Release;UnitTests</Configurations>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+		<PackageReference Include="GreenCity.CommonUtils" Version="1.4.1" />
+		<PackageReference Include="GreenCity.Db" Version="1.4.1" />
+		<PackageReference Include="GreenCity.Http" Version="1.4.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Common\DataContracts\LogistService.Contracts\LogistService.Contracts.csproj" />
+	  <ProjectReference Include="..\..\Common\DataContracts\MissionService.Contracts\MissionService.Contracts.csproj" />
+	  <ProjectReference Include="..\..\Common\DataContracts\SDContracts\SDContracts.csproj" />
+	  <ProjectReference Include="..\SDService.Database\SDService.Database.csproj" />
+	</ItemGroup>
+
+</Project>

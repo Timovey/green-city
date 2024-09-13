@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<UserSecretsId>82b6f6c6-963d-40e0-8d32-fd5f18a730e1</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<DockerfileContext>.</DockerfileContext>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+		<PackageReference Include="GreenCity.Db" Version="1.4.1" />
+		<PackageReference Include="GreenCity.Http" Version="1.4.1" />
+		<PackageReference Include="GreenCity.Logging" Version="1.4.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.5" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.5" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.5">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
+		<PackageReference Include="Quartz" Version="3.4.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+		<PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Common\DataContracts\AuthContracts\AuthContracts.csproj" />
+		<ProjectReference Include="..\..\Common\DataContracts\DispatcherService.Contracts\DispatcherService.Contracts.csproj" />
+		<ProjectReference Include="..\..\Common\DataContracts\FileService.Contracts\FileService.Contracts.csproj" />
+		<ProjectReference Include="..\..\Common\DataContracts\LogistService.Contracts\LogistService.Contracts.csproj" />
+		<ProjectReference Include="..\..\Common\DataContracts\MissionService.Contracts\MissionService.Contracts.csproj" />
+		<ProjectReference Include="..\..\Common\DataContracts\ReportService.Contracts\ReportService.Contracts.csproj" />
+		<ProjectReference Include="..\..\Common\DataContracts\ScheduleService.Contracts\ScheduleService.Contracts.csproj" />
+		<ProjectReference Include="..\..\Common\DataContracts\SDContracts\SDContracts.csproj" />
+		<ProjectReference Include="..\..\Common\DataContracts\TransportContracts\TransportContracts.csproj" />
+		<ProjectReference Include="..\ExternalApi.Interface\ExternalApi.Interface.csproj" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="11.0.0" />
+      <PackageReference Include="EPPlus" Version="4.5.3.3" />
+      <PackageReference Include="GreenCity.Http" Version="1.4.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Common\DataContracts\DataGenerationService.Contracts\DataGenerationService.Contracts.csproj" />
+      <ProjectReference Include="..\..\SDService\SDService.Database\SDService.Database.csproj" />
+    </ItemGroup>
+
+</Project>

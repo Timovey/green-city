@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+		<PackageReference Include="GreenCity.CommonUtils" Version="1.4.1" />
+		<PackageReference Include="GreenCity.Db" Version="1.4.1" />
+		<PackageReference Include="GreenCity.Http" Version="1.4.1" />
+		<PackageReference Include="Quartz" Version="3.4.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ScheduleService.Database\ScheduleService.Database.csproj" />
+	</ItemGroup>
+
+</Project>

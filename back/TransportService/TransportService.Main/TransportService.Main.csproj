@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<UserSecretsId>dab75e88-bd9f-4be9-865d-8779e3f71cf6</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+		<PackageReference Include="GreenCity.CommonUtils" Version="1.4.1" />
+		<PackageReference Include="GreenCity.Db" Version="1.4.1" />
+		<PackageReference Include="GreenCity.Http" Version="1.4.1" />
+		<PackageReference Include="GreenCity.Logging" Version="1.4.1" />
+		<PackageReference Include="Hangfire" Version="1.7.31" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.5" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.5" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.5" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.5">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.1" />
+		<PackageReference Include="Refit" Version="6.3.2" />
+		<PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Common\DataContracts\AuthContracts\AuthContracts.csproj" />
+	  <ProjectReference Include="..\..\Common\DataContracts\ScheduleService.Contracts\ScheduleService.Contracts.csproj" />
+	  <ProjectReference Include="..\TransportService.Core\TransportService.Core.csproj" />
+	  <ProjectReference Include="..\TransportService.Database\TransportService.Database.csproj" />
+	</ItemGroup>
+
+</Project>

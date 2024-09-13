@@ -1,0 +1,30 @@
+﻿@using AuthService.ViewModels.Orgs
+@model EditOrgViewModel
+@{
+    ViewBag.Title = "Редактирование организации";
+}
+<form asp-action="EditOrg" asp-controller="Organizations">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <input type="hidden" asp-for="OrganizationId" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label">Название</label>
+        <input type="text" asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Address" class="control-label">Адрес</label>
+        <input type="text" asp-for="Address" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Phone" class="control-label">Телефон</label>
+        <input type="text" asp-for="Phone" class="form-control" />
+    </div>
+        <div class="form-group">
+        <label asp-for="Ogrn" class="control-label">ОГРН</label>
+        <input type="text" asp-for="Ogrn" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Сохранить" class="btn btn-outline-secondary" />
+    </div>
+</form>

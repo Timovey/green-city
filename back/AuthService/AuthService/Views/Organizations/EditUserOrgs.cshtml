@@ -1,0 +1,17 @@
+﻿@using AuthService.ViewModels.Orgs
+@using Microsoft.AspNetCore.Identity
+@model ChangeUserOrgViewModel
+
+<h2>Изменение ролей для пользователя @Model.UserEmail</h2>
+
+<form asp-action="EditUserOrgs" method="post">
+    <input type="hidden" name="userId" value="@Model.UserId" />
+    <div class="form-group">
+        @foreach (var org in Model.AllOrgs)
+        {
+            <input type="checkbox" name="actualUserOrgIds" value="@org.OrganizationId"
+                   @(Model.UserOrgs.Select(x=>x.Name).Contains(org.Name) ? "checked=\"checked\"" : "") />@org.Name <br />
+            }
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>

@@ -1,0 +1,139 @@
+version: '3.9'
+
+services:
+    
+    mssqldb:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        ports:
+            - 1433:1433
+        restart: on-failure
+        volumes:
+            - mssql-data:/var/opt/mssql
+        environment:
+            - SA_PASSWORD=GreenCity_Dev_Passw0rd_1
+            - ACCEPT_EULA=Y
+            - TZ=UTC
+
+    #mssqldb-unit-testing:
+    #    image: mcr.microsoft.com/mssql/server:2019-latest
+    #    ports:
+    #        - 1434:1433
+    #    restart: on-failure
+    #    volumes:
+    #        - mssql-unit-test-data:/var/opt/mssql
+    #    environment:
+    #        - SA_PASSWORD=GreenCity_Dev_Passw0rd_2
+    #        - ACCEPT_EULA=Y
+    #        - TZ=UTC
+    
+    schedule-service:
+        build:
+            context: ./
+            dockerfile: ./back/ScheduleService/Dockerfile
+        ports:
+            - 6006:80
+        restart: on-failure
+        depends_on:
+            - mssqldb
+
+    #report-service:
+    #    build:
+    #        context: ./
+    #        dockerfile: ./back/ReportService/Dockerfile
+    #    ports:
+    #        - 6009:80
+    #    restart: on-failure
+
+    dispatcher-service:
+        build:
+            context: ./
+            dockerfile: ./back/DispatcherService/Dockerfile
+        ports:
+            - 6010:80
+        restart: on-failure
+        depends_on:
+            - mssqldb
+        
+    logist-service:
+        build:
+            context: ./
+            dockerfile: ./back/LogistService/Dockerfile
+        ports:
+            - 6007:80
+        restart: on-failure
+        depends_on:
+            - mssqldb
+            
+    mission-service:
+        build:
+            context: ./
+            dockerfile: ./back/MissionService/Dockerfile
+        ports:
+            - 6008:80
+        restart: on-failure
+        depends_on:
+            - mssqldb
+        deploy:
+            resources:
+                limits:
+                  cpus: '0.50'
+                  memory: 150M
+                reservations:
+                  cpus: '0.25'
+                  memory: 100M
+    
+    sd-service:
+        build:
+            context: ./
+            dockerfile: ./back/SDService/Dockerfile
+        ports:
+            - 6003:80
+        restart: on-failure
+        depends_on:
+            - mssqldb
+            
+    transport-service:
+        build:
+            context: ./
+            dockerfile: ./back/TransportService/Dockerfile
+        ports:
+            - 6005:80
+        restart: on-failure
+        depends_on:
+            - mssqldb
+
+    auth-service:
+        build:
+            context: ./
+            dockerfile: ./back/AuthService/AuthService/Dockerfile
+        ports:
+            - 6004:80
+        restart: on-failure
+        depends_on:
+            - mssqldb          
+    
+    external-api:
+        build:
+            context: ./
+            dockerfile: ./back/ExternalApiService/ExternalApiService/Dockerfile
+        ports:
+            - 7003:80
+        restart: on-failure
+        environment:
+            - ReportSettings__BaseAddress=http://${HOST_IP}:5298
+        depends_on:
+           - mssqldb
+            
+    #green-city-front:
+    #    build:
+    #        context: ./
+    #        dockerfile: ./nuxt-front/Dockerfile
+    #    ports:
+    #        - 7004:80
+    #    restart: on-failure
+    #    depends_on:
+    #        - external-api
+            
+volumes:
+    mssql-data:
+    mssql-unit-test-data:

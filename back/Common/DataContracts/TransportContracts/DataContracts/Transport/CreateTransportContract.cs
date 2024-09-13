@@ -1,0 +1,138 @@
+﻿using GreenCity.Http;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using TransportContracts.DataContracts.Enums;
+
+namespace TransportContracts.DataContracts.Transport
+{
+    /// <summary>
+    /// Контракт на создание нового транспорта
+    /// </summary>
+    public class CreateTransportContract : CommonHttpContract
+    {
+        /// <summary>
+        /// Название транспортного средства
+        /// </summary>
+        [Required, MaxLength(100)]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// ИД организации
+        /// </summary>
+        public int? OrganizationId { get; set; }
+
+        /// <summary>
+        /// Регистрационный номер
+        /// </summary>
+        [Required, MaxLength(32)]
+        public string RegNumber { get; set; }
+
+        /// <summary>
+        /// СТС
+        /// </summary>
+        [Required, MaxLength(32)]
+        public string Sts { get; set; }
+
+        /// <summary>
+        /// Тип транспортного средства
+        /// </summary>
+        public TransportType TransportType { get; set; }
+
+        /// <summary>
+        /// Тип кузова
+        /// </summary>
+        [MaxLength(100)]
+        public string BodyType { get; set; }
+
+        /// <summary>
+        /// Цвет кузова
+        /// </summary>
+        [MaxLength(100)]
+        public string BodyColor { get; set; }
+
+        /// <summary>
+        /// Забор бака
+        /// </summary>
+        [MaxLength(100)]
+        public string TankFence { get; set; }
+
+        /// <summary>
+        /// Тип бака (тип тары из Абонентского отдела)
+        /// </summary>
+         public IList<int> TankTypes { get; set; }
+
+        /// <summary>
+        /// Грузоподъемность
+        /// </summary>
+        [MaxLength(32)]
+        public string LoadCapacity { get; set; }
+
+        /// <summary>
+        /// Объем кузова
+        /// </summary>
+        [Required]
+        public decimal CargoVolume { get; set; }
+
+        /// <summary>
+        /// Объем кузова с коефицентом 
+        /// </summary>
+        [Required]
+        public decimal CargoVolumeCoef { get; set; }
+
+        /// <summary>
+        /// Год выпуска
+        /// </summary>
+        public int ProductionYear { get; set; }
+
+        /// <summary>
+        /// Лимит затрат
+        /// </summary>
+        public string SpendingLimit { get; set; }
+
+        /// <summary>
+        /// Номер расхода ГСМ зима город
+        /// </summary>
+        public decimal? GsmNumberWinterCity { get; set; }
+
+        /// <summary>
+        /// Номер расхода ГСМ зима трасса
+        /// </summary>
+        public decimal? GsmNumberWinterRoad { get; set; }
+
+        /// <summary>
+        /// Номер расхода ГСМ лето город
+        /// </summary>
+        public decimal? GsmNumberSummerCity { get; set; }
+
+        /// <summary>
+        /// Номер расхода ГСМ лето трасса
+        /// </summary>
+        public decimal? GsmNumberSummerRoad { get; set; }
+
+        /// <summary>
+        /// Норма на 1 моточас
+        /// </summary>
+        public decimal? NormOneMotoHour { get; set; }
+
+        /// <summary>
+        /// Норма на 1 академический час
+        /// </summary>
+        public decimal? NormOneAcademyHour { get; set; }
+
+        /// <summary>
+        /// Норма на 1 минуту
+        /// </summary>
+        public decimal? NormOneMinute { get; set; }
+
+        /// <summary>
+        /// Дата последнего ТО
+        /// </summary>
+        public DateTime? LastTO { get; set; }
+
+        /// <summary>
+        /// ТО и ремонты
+        /// </summary>
+        public string RepairsTO { get; set; }
+    }
+}

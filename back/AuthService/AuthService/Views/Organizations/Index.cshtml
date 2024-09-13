@@ -1,0 +1,24 @@
+﻿@using AuthService.ViewModels.Orgs
+@model IList<OrganizationViewModel>
+
+<h2>Список Орагнизаций</h2>
+<table class="table">
+    @foreach (var org in Model)
+    {
+        <tr>
+            <td>ИД: @org.OrganizationId</td>
+            <td>Название: @org.Name</td>
+            <td>Адрес: @org.Address</td>
+            <td>Телефон: @org.Phone</td>
+            <td>ОГРН: @org.Ogrn</td>
+            <td>
+                <form asp-action="Delete" asp-route-organizationId="@org.OrganizationId" method="post">
+                    <a class="btn btn-sm btn-primary" asp-action="EditOrg" asp-route-organizationId="@org.OrganizationId">Изменить</a>
+                    <button type="submit" class="btn btn-sm btn-danger">Удалить</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+<a asp-action="CreateOrg">Создать организацию</a>
+<a asp-action="UserList">Список пользователей</a>

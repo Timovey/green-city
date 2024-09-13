@@ -1,0 +1,65 @@
+version: '3.9'
+
+services:
+    
+    schedule-service:
+        build:
+            context: ./
+            dockerfile: ./back/ScheduleService/Dockerfile
+        ports:
+            - 6006:80
+        restart: on-failure
+        environment:
+            ASPNETCORE_ENVIRONMENT: Predprod
+    
+    sd-service:
+        build:
+            context: ./
+            dockerfile: ./back/SDService/Dockerfile
+        ports:
+            - 6003:80
+        restart: on-failure
+        environment:
+            ASPNETCORE_ENVIRONMENT: Predprod
+            
+    transport-service:
+        build:
+            context: ./
+            dockerfile: ./back/TransportService/Dockerfile
+        ports:
+            - 6005:80
+        restart: on-failure
+        environment:
+            ASPNETCORE_ENVIRONMENT: Predprod
+
+    auth-service:
+        build:
+            context: ./
+            dockerfile: ./back/AuthService/AuthService/Dockerfile
+        ports:
+            - 6004:80
+        restart: on-failure
+        environment:
+            ASPNETCORE_ENVIRONMENT: Predprod            
+    
+    external-api:
+        build:
+            context: ./
+            dockerfile: ./back/ExternalApiService/ExternalApiService/Dockerfile
+        ports:
+            - 7003:80
+        restart: on-failure
+        environment:
+            ASPNETCORE_ENVIRONMENT: Predprod
+        depends_on:
+            - mssqldb
+            
+    green-city-front:
+        build:
+            context: ./
+            dockerfile: ./front/Dockerfile
+        ports:
+            - 80:80
+        restart: on-failure
+        depends_on:
+            - external-api
