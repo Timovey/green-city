@@ -1,92 +1,66 @@
-# Green-City
+# Green City
 
+Система для компании полного цикла вывоза мусора у организаций и частных клиентов: диспетчеризация, логистика и
+рейсы техники, графики сотрудников и машин, отчёты и документы. Проект был доведён до работы, но закрыт из-за
+законодательных требований к ЖКХ-компаниям. Разработан в Экоинформ (2022–2023).
 
+**Стек:** C# · ASP.NET (.NET) · Entity Framework Core · MS SQL Server · Hangfire · Refit · Docker · Nuxt · Vuetify
 
-## Getting started
+## Архитектура
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+Микросервисы на ASP.NET, у каждого своя база в MS SQL Server и отдельная база логов. Сервисы общаются по HTTP
+(клиенты на Refit) и авторизуют запросы по JWT, который выдаёт `AuthService`.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+| Сервис | Назначение |
+| --- | --- |
+| `ExternalApiService` | API-шлюз для клиентов: авторизация, диспетчеризация, логистика, файлы, отчёты |
+| `AuthService` | пользователи, роли, выдача JWT |
+| `DispatcherService` | диспетчеризация: сменные задания, путевые листы, выполненные задачи |
+| `LogistService` | логистика и рейсы техники |
+| `ScheduleService` | гибкие графики сотрудников и техники |
+| `MissionService` | задания на вывоз, фоновые задачи на Hangfire |
+| `TransportService` | водители и техника, фоновые задачи на Hangfire |
+| `SDService` | контейнеры, договоры и клиенты, площадки |
+| `ReportService` | отчёты |
+| `FileService` | файлы и документы |
+| `DataGenerationService` | генерация тестовых данных |
+| `Common` | общие контракты и инфраструктура (NuGet-пакеты) |
+| `GreenCityTests` | API-тесты |
 
-## Add your files
+Клиенты: `nuxt-front` (Nuxt + Vuetify, основной) и `front` (Vue). Вспомогательное: `tools/` — SQL-скрипты,
+утилиты публикации NuGet-пакетов, скрипт настройки сервера.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+## Мой вклад
 
+- Разработал с нуля frontend и backend личного кабинета таксировщика.
+- Сделал алгоритм построения гибких графиков сотрудников и техники.
+- Спроектировал реляционную БД (MS SQL), написал хранимые процедуры и триггеры для сложной бизнес-логики.
+- Оптимизировал запросы backend- и frontend-части: интеграция ускорилась на 20%, обращений к API стало на 10% меньше.
+- Верстал адаптивные интерфейсы по макетам Figma, интегрировал UI-Kit; презентовал заказчику готовые модули.
+
+## Запуск локально
+
+```bash
+docker compose -f docker-compose.dev.yml up -d   # MS SQL Server для разработки
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/orlovartem123/green-city.git
-git branch -M main
-git push -uf origin main
-```
 
-## Integrate with your tools
+Конфиги `appsettings.Development.json` уже указывают на эту базу. Пароль `sa` для разработки —
+`GreenCity_Dev_Passw0rd_1` (только для локального контейнера).
 
-- [ ] [Set up project integrations](https://gitlab.com/orlovartem123/green-city/-/settings/integrations)
+## Секреты и настройка окружений
 
-## Collaborate with your team
+Секретов в репозитории нет: в `appsettings.json`, `appsettings.Prod.json` и `appsettings.Predprod.json` вместо
+паролей стоят заглушки `CHANGE_ME`, вместо ключей JWT — `00000000-0000-0000-0000-000000000000`. Реальные значения
+задаются переменными окружения; ASP.NET подставляет их поверх `appsettings` (вложенность через `__`):
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+| Переменная | Что задаёт |
+| --- | --- |
+| `MsSqlServerDb__ConnectionString`, `MsSqlServerLogsDb__ConnectionString` | строки подключения к основной базе и базе логов |
+| `Jwt__Key` (AuthService), `JwtSettings__Key` (остальные сервисы) | общий ключ подписи JWT, одинаковый во всех сервисах |
+| `VirtualDrive__Password` (FileService) | пароль сетевого хранилища файлов |
+| `GREENCITY_ADMIN_PASSWORD` | пароль администратора, которого `AuthService` создаёт при первом запуске |
+| `GREENCITY_TEST_USERS_PASSWORD` | пароль тестовых пользователей для API-тестов |
+| `GREENCITY_PROD_DB_PASSWORD` | пароль prod-базы для `tools/Scripts/config_back_machine.sh` |
 
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Без `GREENCITY_ADMIN_PASSWORD` и `GREENCITY_TEST_USERS_PASSWORD` `AuthService` не стартует — так учётные записи не
+создаются с заранее известным паролем.
