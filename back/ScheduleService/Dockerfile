@@ -11,6 +11,8 @@ COPY *.sln ./
 COPY ["back/Common/DataContracts/ScheduleService.Contracts/", "Common/DataContracts/ScheduleService.Contracts/"]
 COPY ["back/ScheduleService/", "ScheduleService/"]
 COPY ["back/nuget.config", ""]
+ARG GREENCITY_NUGET_USER
+ARG GREENCITY_NUGET_TOKEN
 RUN dotnet restore "ScheduleService/ScheduleService.Main/ScheduleService.Main.csproj"
 WORKDIR "/src/ScheduleService/ScheduleService.Main"
 RUN dotnet build "ScheduleService.Main.csproj" -c Release -o /app/build

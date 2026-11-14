@@ -14,6 +14,8 @@ COPY ["back/Common/DataContracts/MissionService.Contracts/", "Common/DataContrac
 COPY ["back/Common/DataContracts/TransportContracts/", "Common/DataContracts/TransportContracts/"]
 COPY ["back/LogistService/", "LogistService/"]
 COPY ["back/nuget.config", ""]
+ARG GREENCITY_NUGET_USER
+ARG GREENCITY_NUGET_TOKEN
 RUN dotnet restore "LogistService/LogistService.Main/LogistService.Main.csproj"
 WORKDIR "/src/LogistService/LogistService.Main"
 RUN dotnet build "LogistService.Main.csproj" -c Release -o /app/build

@@ -16,6 +16,8 @@ COPY ["back/Common/DataContracts/ReportService.Contracts/", "Common/DataContract
 COPY ["back/Common/DataContracts/MissionService.Contracts/", "Common/DataContracts/MissionService.Contracts/"]
 COPY ["back/DispatcherService/", "DispatcherService/"]
 COPY ["back/nuget.config", ""]
+ARG GREENCITY_NUGET_USER
+ARG GREENCITY_NUGET_TOKEN
 RUN dotnet restore "DispatcherService/DispatcherService.Main/DispatcherService.Main.csproj"
 WORKDIR "/src/DispatcherService/DispatcherService.Main"
 RUN dotnet build "DispatcherService.Main.csproj" -c Release -o /app/build

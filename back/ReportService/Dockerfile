@@ -11,6 +11,8 @@ COPY *.sln ./
 COPY ["back/Common/DataContracts/ReportService.Contracts/", "Common/DataContracts/ReportService.Contracts/"]
 COPY ["back/ReportService/", "ReportService/"]
 COPY ["back/nuget.config", ""]
+ARG GREENCITY_NUGET_USER
+ARG GREENCITY_NUGET_TOKEN
 RUN dotnet restore "ReportService/ReportService.Main/ReportService.Main.csproj"
 WORKDIR "/src/ReportService/ReportService.Main"
 RUN dotnet build "ReportService.Main.csproj" -c Release -o /app/build

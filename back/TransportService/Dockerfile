@@ -13,6 +13,8 @@ COPY ["back/Common/DataContracts/ScheduleService.Contracts/", "Common/DataContra
 COPY ["back/Common/DataContracts/AuthContracts/", "Common/DataContracts/AuthContracts/"]
 COPY ["back/TransportService/", "TransportService/"]
 COPY ["back/nuget.config", ""]
+ARG GREENCITY_NUGET_USER
+ARG GREENCITY_NUGET_TOKEN
 RUN dotnet restore "TransportService/TransportService.Main/TransportService.Main.csproj"
 WORKDIR "/src/TransportService/TransportService.Main"
 RUN dotnet build "TransportService.Main.csproj" -c Release -o /app/build

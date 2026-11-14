@@ -11,6 +11,8 @@ COPY *.sln ./
 COPY ["back/Common/DataContracts/", "Common/DataContracts/"]
 COPY ["back/ExternalApiService/", "ExternalApiService/"]
 COPY ["back/nuget.config", ""]
+ARG GREENCITY_NUGET_USER
+ARG GREENCITY_NUGET_TOKEN
 RUN dotnet restore "ExternalApiService/ExternalApiService/ExternalApiService.csproj"
 WORKDIR "/src/ExternalApiService/ExternalApiService"
 RUN dotnet build "ExternalApiService.csproj" -c Release -o /app/build

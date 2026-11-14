@@ -6,8 +6,9 @@ services:
         build:
             context: ./
             dockerfile: ./back/ScheduleService/Dockerfile
-        ports:
-            - 6006:80
+        # Внутренний сервис: доступен только из сети compose, наружу публикуются лишь external-api и фронт.
+        expose:
+            - "80"
         restart: on-failure
         environment:
             ASPNETCORE_ENVIRONMENT: Predprod
@@ -16,8 +17,9 @@ services:
         build:
             context: ./
             dockerfile: ./back/SDService/Dockerfile
-        ports:
-            - 6003:80
+        # Внутренний сервис: доступен только из сети compose, наружу публикуются лишь external-api и фронт.
+        expose:
+            - "80"
         restart: on-failure
         environment:
             ASPNETCORE_ENVIRONMENT: Predprod
@@ -26,8 +28,9 @@ services:
         build:
             context: ./
             dockerfile: ./back/TransportService/Dockerfile
-        ports:
-            - 6005:80
+        # Внутренний сервис: доступен только из сети compose, наружу публикуются лишь external-api и фронт.
+        expose:
+            - "80"
         restart: on-failure
         environment:
             ASPNETCORE_ENVIRONMENT: Predprod
@@ -36,8 +39,9 @@ services:
         build:
             context: ./
             dockerfile: ./back/AuthService/AuthService/Dockerfile
-        ports:
-            - 6004:80
+        # Внутренний сервис: доступен только из сети compose, наружу публикуются лишь external-api и фронт.
+        expose:
+            - "80"
         restart: on-failure
         environment:
             ASPNETCORE_ENVIRONMENT: Predprod            

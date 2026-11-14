@@ -14,6 +14,8 @@ COPY ["back/Common/DataContracts/LogistService.Contracts/", "Common/DataContract
 COPY ["back/Common/DataContracts/MissionService.Contracts/", "Common/DataContracts/MissionService.Contracts/"]
 COPY ["back/SDService/", "SDService/"]
 COPY ["back/nuget.config", ""]
+ARG GREENCITY_NUGET_USER
+ARG GREENCITY_NUGET_TOKEN
 RUN dotnet restore "SDService/SDService.Main/SDService.Main.csproj"
 WORKDIR "/src/SDService/SDService.Main"
 RUN dotnet build "SDService.Main.csproj" -c Release -o /app/build

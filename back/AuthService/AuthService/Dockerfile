@@ -11,6 +11,8 @@ COPY *.sln ./
 COPY ["back/Common/DataContracts/AuthContracts/", "Common/DataContracts/AuthContracts/"]
 COPY ["back/AuthService/", "AuthService/"]
 COPY ["back/nuget.config", ""]
+ARG GREENCITY_NUGET_USER
+ARG GREENCITY_NUGET_TOKEN
 RUN dotnet restore "AuthService/AuthService/AuthService.csproj"
 WORKDIR "/src/AuthService/AuthService"
 RUN dotnet build "AuthService.csproj" -c Release -o /app/build
